@@ -42,5 +42,11 @@ export class CreateMemberDto {
   @Column()
   zoneId: string;
 
-  
+   
+  @ApiProperty({ description: 'Role of the member', example: 'MEMBER', required: false })
+  @IsString()
+  @Column({ default: 'MEMBER', nullable: true })
+  role?: string;
+
+
 }

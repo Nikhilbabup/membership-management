@@ -54,8 +54,9 @@ export class MembersController {
   }
 
   @Get(':id/qr')
-  @Roles('ADMIN', 'MEMBER')
-  async getQRCode(@Param('id') id: string) {
-    return { qrCode: await this.membersService.generateQRCode(+id) };
+  @ApiBearerAuth()
+  // @Roles('ADMIN', 'MEMBER')
+  async getQRCode(@Param('id') id: number) {
+    return { qrCode: await this.membersService.generateQRCode(id) };
   }
 }
