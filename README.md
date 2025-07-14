@@ -20,6 +20,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## run postgres docker using following command
+```docker compose up -d```
 ## Run tests
 
 ```bash
