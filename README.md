@@ -22,6 +22,9 @@ $ npm run start:prod
 
 ## run postgres docker using following command
 ```docker compose up -d```
+
+## Swagger Ui
+http://localhost:3000/api
 ## Run tests
 
 ```bash
