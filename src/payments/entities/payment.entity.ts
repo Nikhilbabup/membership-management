@@ -1,4 +1,3 @@
-// src/payments/entities/payment.entity.ts
 import {
   Entity,
   Column,

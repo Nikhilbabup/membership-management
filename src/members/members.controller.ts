@@ -24,7 +24,7 @@ export class MembersController {
   constructor(private membersService: MembersService) {}
 
   @Post()
-  @Roles('ADMIN')
+  // @Roles('ADMIN')
   create(@Body() createMemberDto: CreateMemberDto) {
     return this.membersService.create(createMemberDto);
   }

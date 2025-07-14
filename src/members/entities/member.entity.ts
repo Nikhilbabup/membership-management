@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Zone } from '../../common/entities/zone.entity';
 
 @Entity()
@@ -33,6 +40,12 @@ export class Member {
   @Column({ nullable: true })
   receiptPath: string;
 
-  @Column({ default: 'MEMBER' })
+  @Column({ default: 'MEMBER', nullable: true })
   role: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

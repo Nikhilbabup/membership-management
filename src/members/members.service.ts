@@ -5,6 +5,8 @@ import { Member } from './entities/member.entity';
 import { CreateMemberDto } from './dtos/create-member.dto';
 import { SearchMemberDto } from './dtos/search-member.dto';
 import { UpdateMemberDto } from './dtos/update-member.dto';
+import * as bcrypt from 'bcrypt';
+import * as QRCode from 'qrcode';
 
 @Injectable()
 export class MembersService {
@@ -14,6 +16,15 @@ export class MembersService {
   ) {}
 
   async create(createMemberDto: CreateMemberDto) {
+    // Check if memberId already exists
+    const existingMember = await this.membersRepository.findOne({
+      where: { memberId: createMemberDto.memberId },
+    });
+    if (existingMember) {
+      throw new NotFoundException('Member with this ID already exists');
+    }
+    const hashedPassword = await bcrypt.hash(createMemberDto.password, 10);
+    createMemberDto.password = hashedPassword;
     const member = this.membersRepository.create(createMemberDto);
     return this.membersRepository.save(member);
   }
@@ -53,12 +64,12 @@ export class MembersService {
 
   async generateQRCode(id: number): Promise<any> {
     const member = await this.findOne(id);
-    // return QRCode.toDataURL(
-    //   JSON.stringify({
-    //     memberId: member.memberId,
-    //     name: member.name,
-    //     membershipType: member.membershipType,
-    //   }),
-    // );
+    return QRCode.toDataURL(
+      JSON.stringify({
+        memberId: member.memberId,
+        name: member.name,
+        membershipType: member.membershipType,
+      }),
+    );
   }
 }
